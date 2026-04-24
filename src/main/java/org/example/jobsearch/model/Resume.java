@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -16,7 +17,7 @@ public class Resume {
     private Long applicantId;
     private String name;
     private Integer categoryId;
-    private Integer salary;
+    private BigDecimal salary;
     private boolean isActive;
     private Date createdDate;
     private Date updatedDate;
