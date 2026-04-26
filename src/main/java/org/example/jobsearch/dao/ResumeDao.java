@@ -2,8 +2,8 @@ package org.example.jobsearch.dao;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.jobsearch.dao.mapper.ResumeMapper;
 import org.example.jobsearch.model.Resume;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,13 +19,13 @@ public class ResumeDao {
 
     public List<Resume> getAllResumes() {
         String sql = "select * from resumes";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Resume.class));
+        return jdbcTemplate.query(sql, new ResumeMapper());
     }
 
     public List<Resume> getResumesByCategoryId(Integer categoryId) {
         String sql = "select * from resumes where category_id = :categoryId";
         return namedParameterJdbcTemplate.query(sql,
                 new MapSqlParameterSource()
-                        .addValue("categoryId", categoryId), new BeanPropertyRowMapper<>(Resume.class));
+                        .addValue("categoryId", categoryId), new ResumeMapper());
     }
 }
