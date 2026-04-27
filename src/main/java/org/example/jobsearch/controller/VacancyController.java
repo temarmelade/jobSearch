@@ -7,12 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("vacancy")
 public class VacancyController {
 
     private final VacancyService vacancyService;
+
+    @GetMapping
+    public List<VacancyDto> getActiveVacancies() {
+        return vacancyService.getActiveVacancies();
+    }
 
     @PostMapping
     public HttpStatus createVacancy(@RequestBody VacancyDto vacancyDto) {
@@ -31,4 +38,5 @@ public class VacancyController {
         vacancyService.deleteVacancy(vacancyId);
         return HttpStatus.OK;
     }
+
 }
