@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -68,5 +69,10 @@ public class VacancyDao {
     public void deleteVacancyById(Long id) {
         String sql = "delete from vacancies where id = ?";
         jdbcTemplate.update(sql, id);
+    }
+
+    public List<Vacancy> getActiveVacancies() {
+        String sql = "select * from vacancies where is_active = true";
+        return jdbcTemplate.query(sql, new VacancyMapper());
     }
 }
