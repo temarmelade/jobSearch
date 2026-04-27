@@ -8,6 +8,7 @@ import org.example.jobsearch.service.VacancyService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +52,27 @@ public class VacancyServiceImpl implements VacancyService {
     @Override
     public void deleteVacancy(Long vacancyId) {
         vacancyDao.deleteVacancyById(vacancyId);
+    }
+
+    @Override
+    public List<VacancyDto> getActiveVacancies() {
+        List<Vacancy> vacancies = vacancyDao.getActiveVacancies();
+        return vacancies.stream()
+                .map(e -> VacancyDto.builder()
+                        .id(e.getId())
+                        .isActive(e.isActive())
+                        .expFrom(e.getExpFrom())
+                        .expTo(e.getExpTo())
+                        .name(e.getName())
+                        .description(e.getDescription())
+                        .salary(e.getSalary())
+                        .authorId(e.getAuthorId())
+                        .categoryId(e.getCategoryId())
+                        .createdDate(e.getCreatedDate())
+                        .updateDate(e.getUpdateDate())
+                        .isActive(e.isActive())
+                        .build())
+                .toList();
     }
 
     private Vacancy setVacancy(VacancyDto vacancyDto, Long vacancyId) {
